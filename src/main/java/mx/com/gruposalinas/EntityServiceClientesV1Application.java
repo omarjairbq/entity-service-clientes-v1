@@ -21,7 +21,7 @@ public class EntityServiceClientesV1Application {
 	}
 
 	/**
-	 * @return RestTemplate.
+	 * @return DozerBeanMapper.
 	 */
 	@Bean(name = "dozerMapper")
 	Mapper registerDozerMapper() {
