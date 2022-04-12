@@ -8,13 +8,7 @@ import io.swagger.annotations.ApiModelProperty;
  * @author Omar Balbuena
  *
  */
-public class ClienteDetalle {
-
-	/**
-	 * Identificador.
-	 */
-	@ApiModelProperty(value = "Identificador del cliente")
-	private Long id;
+public class ClienteDTO {
 
 	/**
 	 * Nombre del cliente.
@@ -31,12 +25,10 @@ public class ClienteDetalle {
 	/**
 	 * Constructor.
 	 * 
-	 * @param id
 	 * @param nombre
 	 * @param correo
 	 */
-	public ClienteDetalle(Long id, String nombre, String correo) {
-		this.id = id;
+	public ClienteDTO(String nombre, String correo) {
 		this.nombre = nombre;
 		this.correo = correo;
 	}
@@ -44,22 +36,8 @@ public class ClienteDetalle {
 	/**
 	 * Constructor.
 	 */
-	public ClienteDetalle() {
+	public ClienteDTO() {
 		super();
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	/**

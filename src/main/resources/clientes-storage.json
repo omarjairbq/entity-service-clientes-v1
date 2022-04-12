@@ -1,0 +1,8 @@
+[
+	{
+		"_class": "mx.com.gruposalinas.model.ClienteEntity",
+		"id": 1,
+		"nombre": "Omar Balbuena",
+		"correo": "omarjbq@hotmail.com"
+	}
+]

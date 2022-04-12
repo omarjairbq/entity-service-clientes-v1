@@ -24,6 +24,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig {
 
+	/**
+	 * Docket swagger.
+	 * 
+	 * @return
+	 */
 	@Bean
 	public Docket apiDocket() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
@@ -32,6 +37,11 @@ public class SwaggerConfig {
 				.apiInfo(getApiInfo());
 	}
 
+	/**
+	 * API Info.
+	 * 
+	 * @return
+	 */
 	private ApiInfo getApiInfo() {
 		return new ApiInfo(
 				"entity-service-clientes-v1", "API Exámen Práctico", "1.0", null, new Contact("Omar Balbuena",

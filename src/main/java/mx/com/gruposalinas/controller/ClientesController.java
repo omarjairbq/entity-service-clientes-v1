@@ -1,6 +1,5 @@
 package mx.com.gruposalinas.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,8 +17,9 @@ import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import mx.com.gruposalinas.constantes.HttpStatus;
-import mx.com.gruposalinas.dto.Cliente;
-import mx.com.gruposalinas.dto.ClienteDetalle;
+import mx.com.gruposalinas.dto.ClienteDTO;
+import mx.com.gruposalinas.dto.ClienteDetalleDTO;
+import mx.com.gruposalinas.service.ClienteService;
 
 /**
  * Controlador operaciones clientes.
@@ -32,6 +32,18 @@ import mx.com.gruposalinas.dto.ClienteDetalle;
 public class ClientesController {
 
 	/**
+	 * Servicio.
+	 */
+	private ClienteService service;
+
+	/**
+	 * @param service
+	 */
+	public ClientesController(ClienteService service) {
+		this.service = service;
+	}
+
+	/**
 	 * Consulta todos los clientes.
 	 * 
 	 * @return
@@ -41,8 +53,8 @@ public class ClientesController {
 	@ApiResponses(value = { @ApiResponse(code = HttpStatus.OK, message = "Ejecución exitosa"),
 			@ApiResponse(code = HttpStatus.UNEXPECTED_ERROR, message = "Error inesperado durante la ejecucion de la solicitud") })
 	@ResponseStatus(org.springframework.http.HttpStatus.OK)
-	public List<ClienteDetalle> obtenerClientes() {
-		return new ArrayList<>();
+	public List<ClienteDetalleDTO> obtenerClientes() {
+		return this.service.consultarClientes();
 	}
 
 	/**
@@ -57,9 +69,9 @@ public class ClientesController {
 			@ApiResponse(code = HttpStatus.NOT_FOUND, message = "Recurso no encontrado"),
 			@ApiResponse(code = HttpStatus.UNEXPECTED_ERROR, message = "Error inesperado durante la ejecucion de la solicitud") })
 	@ResponseStatus(org.springframework.http.HttpStatus.OK)
-	public ClienteDetalle obtenerDetalleCliente(
-			@ApiParam(required = true, name = "id", value = "Identificador del cliente") @PathVariable("id") final String id) {
-		return new ClienteDetalle();
+	public ClienteDetalleDTO obtenerDetalleCliente(
+			@ApiParam(required = true, name = "id", value = "Identificador del cliente") @PathVariable("id") final Long id) {
+		return this.service.consultarCliente(id);
 	}
 
 	/**
@@ -74,9 +86,9 @@ public class ClientesController {
 			@ApiResponse(code = HttpStatus.BAD_REQUEST, message = "Solicitud Invalida"),
 			@ApiResponse(code = HttpStatus.UNEXPECTED_ERROR, message = "Error inesperado durante la ejecucion de la solicitud") })
 	@ResponseStatus(org.springframework.http.HttpStatus.OK)
-	public ClienteDetalle crearCliente(
-			@ApiParam(required = true, name = "requestCliente", value = "Cliente") @RequestBody final Cliente requestCliente) {
-		return new ClienteDetalle();
+	public ClienteDetalleDTO crearCliente(
+			@ApiParam(required = true, name = "requestCliente", value = "Cliente") @RequestBody final ClienteDTO requestCliente) {
+		return this.service.crearCliente(requestCliente);
 	}
 
 	/**
@@ -93,9 +105,9 @@ public class ClientesController {
 			@ApiResponse(code = HttpStatus.UNEXPECTED_ERROR, message = "Error inesperado durante la ejecucion de la solicitud") })
 	@ResponseStatus(org.springframework.http.HttpStatus.NO_CONTENT)
 	public void actualizarCliente(
-			@ApiParam(required = true, name = "id", value = "Identificador del cliente") @PathVariable("id") final String id,
-			@ApiParam(required = true, name = "requestCliente", value = "Cliente") @RequestBody final Cliente requestCliente) {
-
+			@ApiParam(required = true, name = "id", value = "Identificador del cliente") @PathVariable("id") final Long id,
+			@ApiParam(required = true, name = "requestCliente", value = "Cliente") @RequestBody final ClienteDTO requestCliente) {
+		this.service.actualizarCliente(id, requestCliente);
 	}
 
 	/**
@@ -111,8 +123,8 @@ public class ClientesController {
 			@ApiResponse(code = HttpStatus.UNEXPECTED_ERROR, message = "Error inesperado durante la ejecucion de la solicitud") })
 	@ResponseStatus(org.springframework.http.HttpStatus.NO_CONTENT)
 	public void eliminarCliente(
-			@ApiParam(required = true, name = "id", value = "Identificador del cliente") @PathVariable("id") final String id) {
-
+			@ApiParam(required = true, name = "id", value = "Identificador del cliente") @PathVariable("id") final Long id) {
+		this.service.eliminarCliente(id);
 	}
 
 }
